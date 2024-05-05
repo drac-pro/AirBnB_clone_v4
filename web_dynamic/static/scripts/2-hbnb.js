@@ -9,3 +9,9 @@ $(document).ready(function () {
     $('.amenities h4').text(Object.values(checkedAmenities).sort().join(', '));
   });
 });
+
+$(document).ready(function() {
+  $.get('http://0.0.0.0:5001/api/v1/status/', function(data) {
+    $('#api_status').toggleClass('available', data.status === 'OK');
+  });
+});
