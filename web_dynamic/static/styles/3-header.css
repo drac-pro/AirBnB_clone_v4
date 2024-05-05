@@ -20,6 +20,6 @@ header .logo {
     justify-content: center;
     background-color: #cccccc;
 }
-.available {
-    background-color: #ff545f !important;
+#api_status.available {
+    background-color: #ff545f;
 }

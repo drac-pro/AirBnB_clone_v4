@@ -10,21 +10,8 @@ $(document).ready(function () {
     });
   });
 
-const apiStatusDiv = $('#api_status');
-
-$.ajax({
-    url: 'http://0.0.0.0:5001/api/v1/status/',
-    type: 'GET',
-    datatype: 'json',
-    success: function (data) {
-        if (data.status === 'OK') {
-            apiStatusDiv.addClass('available');
-        } else {
-            apiStatusDiv.removeClass('available');
-        }
-    },
-    error: function (xhr, status) {
-        console.log('error' + status);
-        apiStatusDiv.removeClass('available');
-    }
+$(document).ready(function() {
+  $.get('http://0.0.0.0:5001/api/v1/status/', function(data) {
+    $('#api_status').toggleClass('available', data.status === 'OK');
+  });
 });
