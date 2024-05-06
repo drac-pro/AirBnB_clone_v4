@@ -1,12 +1,30 @@
 $(document).ready(function () {
     const checkedAmenities = {};
-    $('li input[type="checkbox"]').change(function () {
+    const checkedStates = {};
+    const checkedCities = {};
+    $('.amenities li input[type="checkbox"]').change(function () {
       if (this.checked) {
         checkedAmenities[this.dataset.id] = this.dataset.name;
       } else {
         delete checkedAmenities[this.dataset.id];
       }
       $('.amenities h4').text(Object.values(checkedAmenities).sort().join(', '));
+    });
+    $('.states li input[type="checkbox"]').change(function () {
+      if (this.checked) {
+        checkedStates[this.dataset.id] = this.dataset.name;
+      } else {
+        delete checkedStates[this.dataset.id];
+      }
+      $('.states h4').text(Object.values(checkedStates).sort().join(', '));
+    });
+    $('.cities li input[type="checkbox"]').change(function () {
+      if (this.checked) {
+        checkedCities[this.dataset.id] = this.dataset.name;
+      } else {
+        delete checkedCities[this.dataset.id];
+      }
+      $('.cities h4').text(Object.values(checkedCities).sort().join(', '));
     });
   
     // get api status
