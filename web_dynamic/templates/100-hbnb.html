@@ -26,11 +26,11 @@
 	    <ul>
 	      {% for state in states %}
 	      <li>
-            <input type="checkbox" data-id=":state_id" data-name=":state_name">
+            <input type="checkbox" data-id="{{ state.id }}" data-name="{{ state.name }}">
 		<h2>{{ state[0].name }}:</h2>
 		<ul>
 		  {% for city in state[1] %}
-		  <li><input type="checkbox" data-id=":city_id" data-name=":city_name">{{ city.name }}</li>
+		  <li><input type="checkbox" data-id="{{ city.id }}" data-name="{{ city.name }}">{{ city.name }}</li>
 		  {% endfor %}
 		</ul>
 	      </li>
