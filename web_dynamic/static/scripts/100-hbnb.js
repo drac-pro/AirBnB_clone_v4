@@ -2,30 +2,41 @@ $(document).ready(function () {
     const checkedAmenities = {};
     const checkedStates = {};
     const checkedCities = {};
-    $('.amenities li input[type="checkbox"]').change(function () {
-      if (this.checked) {
-        checkedAmenities[this.dataset.id] = this.dataset.name;
+    $('input[type="checkbox"]').change(function() {
+    let dataId = $(this).data('id');
+    let dataName = $(this).data('name');
+    let isChecked = $(this).is(':checked');
+
+    // Determine the type of checkbox (state, city, or amenity)
+    if (dataId.startsWith('State')) {
+      if (isChecked) {
+        selectedStates[dataId] = dataName;
       } else {
-        delete checkedAmenities[this.dataset.id];
+        delete selectedStates[dataId];
       }
-      $('.amenities h4').text(Object.values(checkedAmenities).sort().join(', '));
-    });
-    $('.states li input[type="checkbox"]').change(function () {
-      if (this.checked) {
-        checkedStates[this.dataset.id] = this.dataset.name;
+    } else if (dataId.startsWith('City')) {
+      if (isChecked) {
+        selectedCities[dataId] = dataName;
       } else {
-        delete checkedStates[this.dataset.id];
+        delete selectedCities[dataId];
       }
-      $('.states h4').text(Object.values(checkedStates).sort().join(', '));
-    });
-    $('.cities li input[type="checkbox"]').change(function () {
-      if (this.checked) {
-        checkedCities[this.dataset.id] = this.dataset.name;
+    } else {
+      // Assuming all other checkboxes are for amenities
+      if (isChecked) {
+        selectedAmenities[dataId] = dataName;
       } else {
-        delete checkedCities[this.dataset.id];
+        delete selectedAmenities[dataId];
       }
-      $('.cities h4').text(Object.values(checkedCities).sort().join(', '));
-    });
+    }
+
+    // Update the h4 tags with the lists of checked items
+    let statesList = Object.values(selectedStates).join(', ');
+    let citiesList = Object.values(selectedCities).join(', ');
+    let amenitiesList = Object.values(selectedAmenities).join(', ');
+
+    $('.locations h4').text(statesList + ', ' + citiesList);
+    $('.amenities h4').text(amenitiesList);
+  });
   
     // get api status
     $.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
